@@ -1,0 +1,25 @@
+{
+  "name": "a-social-network-api",
+  "version": "1.0.0",
+  "description": "This is a placeholder. I am currently behind on my homework and am working to catch up on it. Should you be reading this to grade my assignment, please be advised I will have it completed shortly.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kovaceva11/A-Social-Network-API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kovaceva11/A-Social-Network-API/issues"
+  },
+  "homepage": "https://github.com/Kovaceva11/A-Social-Network-API#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "moment": "^2.29.1",
+    "mongoose": "^6.2.7"
+  }
+}
