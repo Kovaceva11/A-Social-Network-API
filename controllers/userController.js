@@ -46,38 +46,40 @@ module.exports = {
       .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
-  // Delete a user and remove them from the course
-  deleteUser(req, res) {
-    User.findOneAndRemove({ _id: req.params.userId })
-      .then((user) =>
-        !user
-          ? res.status(404).json({ message: 'No such user exists' })
-          : Course.findOneAndUpdate(
-              { users: req.params.userId },
-              { $pull: { users: req.params.userId } },
-              { new: true }
-            )
+  // Update a user 
+  updateUser(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $set: req.body },
+      { runValidators: true, new: true }
+    )
+      .then((comment) =>
+        !comment
+          ? res.status(404).json({ message: 'No comment with this id!' })
+          : res.json(comment)
       )
-      .then((course) =>
-        !course
-          ? res.status(404).json({
-              message: 'User deleted, but no courses found',
-            })
-          : res.json({ message: 'User successfully deleted' })
-      )
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
-      });
+      .catch((err) => res.status(500).json(err));
   },
 
-  // Add an assignment to a user
-  addAssignment(req, res) {
-    console.log('You are adding an assignment');
+  // Delete User
+  deleteUser(req, res) {
+    User.findOneAndDelete({ _id: req.params.userId })
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: 'No user with that ID' })
+          : res.status(200).json({message: "User successfully Deleted"})
+      )
+      
+      .catch((err) => res.status(500).json(err));
+  },
+
+  // Add a friend to a user
+  addFriend(req, res) {
+    console.log('You are adding an friend');
     console.log(req.body);
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $addToSet: { assignments: req.body } },
+      { $addToSet: { friends: req.body } },
       { runValidators: true, new: true }
     )
       .then((user) =>
@@ -89,11 +91,11 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  // Remove assignment from a user
-  removeAssignment(req, res) {
+  // Remove friend from a user
+  removeFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
-      { $pull: { assignment: { assignmentId: req.params.assignmentId } } },
+      { $pull: { friend: { friendId: req.params.friendId } } },
       { runValidators: true, new: true }
     )
       .then((user) =>

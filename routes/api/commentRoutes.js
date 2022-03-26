@@ -1,4 +1,4 @@
-git const router = require('express').Router();
+const router = require('express').Router();
 
 const {
   getComments,
@@ -6,8 +6,8 @@ const {
   createComment,
   updateComment,
   deleteComment,
-  addLike,
-  removeLike,
+  addReaction,
+  deleteReaction,
 } = require('../../controllers/CommentController');
 
 // /api/Comments
@@ -26,10 +26,10 @@ router.route('/:commentId')
 // /api/Comments/:CommentId/Likes
 router
   .route('/:commentId/likes')
-  .post(addLike);
+  .post(addReaction);
 
 // /api/Comments/:CommentId/Likes/:LikeId
 router.route('/:commentId/like/:likeId')
-  .delete(removeLike);
+  .delete(deleteReaction);
 
 module.exports = router;

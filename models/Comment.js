@@ -1,40 +1,70 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
+const moment = require('moment');
 
 // Schema to create a course model
-const courseSchema = new Schema(
+const likeSchema = new Schema(
   {
-    courseName: {
+    likeId: {
+      type: Schema.Types.ObjectId,
+      Default: () => new Types.ObjectId()
+    },
+    likeBody: {
+      type: String,
+      required: true,
+      maxLength: 280,
+    },
+    username: {
       type: String,
       required: true,
     },
-    inPerson: {
-      type: Boolean,
-      default: true,
-    },
-    startDate: {
-      type: Date,
-      default: Date.now(),
-    },
-    endDate: {
+    createdAt: {
       type: Date,
       // Sets a default value of 12 weeks from now
-      default: () => new Date(+new Date() + 84 * 24 * 60 * 60 * 1000),
+      default: Date.now,
+      get: (createdAt) => moment(createdAt).format('MMM Do YYYY')
     },
-    students: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Student',
-      },
-    ],
+    
   },
   {
     toJSON: {
       virtuals: true,
+      getters: true,
     },
     id: false,
   }
 );
 
-const Course = model('course', courseSchema);
+const commentSchema = new Schema(
+  {
+    commentText: {
+      type: String,
+      required: true,
+      maxlength: 280,
+      minlength: 1,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: (cratedAt) => moment(createdAt).format('MMM Do YYYY')      
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    likes: [likeSchema],
+    },
+    {
+      toJSON: {
+        virtuals: true,
+        getters: true,
+      },
+    }
+  );
 
-module.exports = Course;
+  commentSchema.virtual('likeCount').get(function() {
+    return this.likes.length;
+  });
+
+const Comment = model('comment', likeSchema);
+
+module.exports = Comment;
