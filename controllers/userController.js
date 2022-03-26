@@ -13,8 +13,7 @@ module.exports = {
     User.find()
       .then(async (users) => {
         const userObj = {
-          users,
-          userCount: await userCount(),
+          users
         };
         return res.json(userObj);
       })
@@ -30,10 +29,7 @@ module.exports = {
       .then(async (user) =>
         !user
           ? res.status(404).json({ message: 'No user with that ID' })
-          : res.json({
-              user,
-              grade: await grade(req.params.userId),
-            })
+          : res.json(user)
       )
       .catch((err) => {
         console.log(err);
@@ -53,10 +49,10 @@ module.exports = {
       { $set: req.body },
       { runValidators: true, new: true }
     )
-      .then((comment) =>
-        !comment
-          ? res.status(404).json({ message: 'No comment with this id!' })
-          : res.json(comment)
+      .then((thought) =>
+        !thought
+          ? res.status(404).json({ message: 'No thought with this id!' })
+          : res.json(thought)
       )
       .catch((err) => res.status(500).json(err));
   },

@@ -34,9 +34,9 @@ const likeSchema = new Schema(
   }
 );
 
-const commentSchema = new Schema(
+const thoughtSchema = new Schema(
   {
-    commentText: {
+    thoughtText: {
       type: String,
       required: true,
       maxlength: 280,
@@ -61,10 +61,10 @@ const commentSchema = new Schema(
     }
   );
 
-  commentSchema.virtual('likeCount').get(function() {
+  thoughtSchema.virtual('likeCount').get(function() {
     return this.likes.length;
   });
 
-const Comment = model('comment', likeSchema);
+const Thought = model('thought', likeSchema);
 
-module.exports = Comment;
+module.exports = Thought;
