@@ -19,20 +19,14 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   // Create a thought
-  createThought(req, res) {
-    Thought.create(req.body)
-      .then((thought) => 
-      {return User.findOneAndUpdate (
-        {_id: req.body.userId},
-        {$addToSet: {thoughts: thought._id }},
-        {new: true}
-        );
-      })
-      .catch((err) => {
-        console.log(err);
-        return res.status(500).json(err);
-      });
-  },
+  createThought({params, body}, res) {
+    Thought.create(body)
+        .then((_id) => {
+            return User.findOneAndUpdate({ _id: params.userId }, { $push: { thoughts: _id } }, { new: true });
+        })
+        .then((thought) => res.json(thought))
+        .catch((err) => res.json(err))
+},
   // Delete a thought
  
   deleteThought(req, res) {
@@ -88,7 +82,7 @@ deleteReaction(req, res) {
       .then((thought) =>
       !thought
           ? res.status(404).json({ message: 'No thought found with that ID!' })
-          : res.json(thought)
+          : res.status(200).json({message: "Reaction Successfully Deleted"})
       )
       .catch((err) => res.status(500).json(err));
 },

@@ -1,14 +1,14 @@
 const { Schema, model, Types } = require('mongoose');
 const moment = require('moment');
 
-// Schema to create a course model
-const likeSchema = new Schema(
+// Schema to create a reaction model
+const reactionSchema = new Schema(
   {
-    likeId: {
+    reactionId: {
       type: Schema.Types.ObjectId,
       Default: () => new Types.ObjectId()
     },
-    likeBody: {
+    reactionBody: {
       type: String,
       required: true,
       maxLength: 280,
@@ -19,7 +19,6 @@ const likeSchema = new Schema(
     },
     createdAt: {
       type: Date,
-      // Sets a default value of 12 weeks from now
       default: Date.now,
       get: (createdAt) => moment(createdAt).format('MMM Do YYYY')
     },
@@ -27,10 +26,8 @@ const likeSchema = new Schema(
   },
   {
     toJSON: {
-      virtuals: true,
       getters: true,
     },
-    id: false,
   }
 );
 
@@ -45,13 +42,13 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
-      get: (cratedAt) => moment(createdAt).format('MMM Do YYYY')      
+      get: (createdAt) => moment(createdAt).format('MMM Do YYYY')      
     },
     username: {
       type: String,
       required: true,
     },
-    likes: [likeSchema],
+    reactions: [reactionSchema],
     },
     {
       toJSON: {
@@ -61,10 +58,10 @@ const thoughtSchema = new Schema(
     }
   );
 
-  thoughtSchema.virtual('likeCount').get(function() {
-    return this.likes.length;
+  thoughtSchema.virtual('reactionCount').get(function() {
+    return this.reactions.length;
   });
 
-const Thought = model('thought', likeSchema);
+const Thought = model('thought', thoughtSchema);
 
 module.exports = Thought;
