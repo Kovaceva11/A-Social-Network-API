@@ -1,7 +1,9 @@
 # A Social Network API
 Welcome to my Social Network API. This is a basic API created with focus on using [Express.js](https://expressjs.com/) for routing, a [MongoDB](https://www.mongodb.com/lp/video/awareness/getting-started?utm_content=rlsapostreg&utm_source=google&utm_campaign=gs_americas_uscan_search_brand_dsa_atlas_desktop_rlsa_postreg&utm_term=&utm_medium=cpc_paid_search&utm_ad=&utm_ad_campaign_id=14383025495&adgroup=129270225314&gclid=Cj0KCQjw3IqSBhCoARIsAMBkTb1UB5sMA3gwKW7r0uS6NrdkKHrjk9PDK2KXMAGS7W29ayMEzBnXruMaAndYEALw_wcB) database and the [Mongoose ODM](https://www.npmjs.com/package/mongoose). Additionally, I chose to use the [Moment.js](https://momentjs.com/) date library for incorporating date information in the functionality. 
-# Link to Walkthrough demo video
-https://drive.google.com/file/d/14-aZkA2IBxJGzeyXwlCNnDYF4L62bQwJ/view?usp=sharing
+# Walkthrough Demo Video
+[View Demo Video Here](https://drive.google.com/file/d/14-aZkA2IBxJGzeyXwlCNnDYF4L62bQwJ/view?usp=sharing) 
+
+Posted on Google Drive.
 # Installing this application
 Download the repo and then open the terminal with it pointing to the application's root directory. Then enter the following commands into the terminal. 
 
